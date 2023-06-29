@@ -20,18 +20,21 @@
       - put it in separate tables in SQL
       - use databases that support structured datatypes and XML data
       - encode it as JSON/XML document
-  - JSON
-    - suitable for self-contained document like resume
-    - better locality than the multi-table scheme - one query is sufficient
-    - one-to-many tree structures
   - why store ID but not text string?
     - consistent
     - ease of updating (the name is stored in only one place, prevent duplicating human-meaningful info &rarr normalization)
     - localization support
+  - Relational vs Document Database - their convergence
+    - Relatinal: better support for joins, many-to-one/many-to-many relationships
+    - Document: schema flexibility(schema-on-read rather than schema-on-write), better performance due to locality, closer to data structures for some applications
+      - JSON
+        - suitable for self-contained document like resume
+        - better locality than the multi-table scheme - one query is sufficient
+        - one-to-many tree structures
   - Document Databases
     - Limitations:
       - difficult to have many-to-many relationships
-      - didn't support joins
+      - didn't support joins ( can emulated in application codes by making multiple requests to the database, but moves complexity from specialized code inside the database into application, making it slower)
     - Solutions:
       - the network model: generalization of hierarchical models (one parent, tree structure), could have multiple parents
         - access a record by following access path
@@ -40,4 +43,14 @@
       - the relational model
         - a relation(table) is simply a bunch of rows
         - "access paths" are made automatically by query optimizer, not appplication developer
-
+    - Declarative vs Imperative Query Lanaguages
+      - declarative: fewer assumptions, parallel execution
+    - MapReduce Querying
+    - Graph-Like Data Models
+      - Property Graphs
+        - two relational tables: one for vertices, and one for edges
+        - good evolvability
+        - Cypher is a declarative query language for property graphs
+      - Triple-Stores and SPARQL
+        - three statements: (subject, predicate, object)
+      - DataLog - predicate(subject, object)
